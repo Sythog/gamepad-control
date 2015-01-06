@@ -7,8 +7,6 @@ import net.java.games.input.Component;
 import net.java.games.input.Component.Identifier.Axis;
 import net.java.games.input.Controller;
 
-import java.util.stream.Stream;
-
 public class ContinuousListener extends ControllerListener {
 
     public ContinuousListener(Controller controller) {
@@ -31,13 +29,7 @@ public class ContinuousListener extends ControllerListener {
                 scrollEmulator.handle(zAxis);
             }
             try {
-                float maxPollData = Stream.of(xAxis, yAxis, zAxis)
-                        .map(Component::getPollData)
-                        .map(Math::abs)
-                        .max(Float::compareTo)
-                        .orElse(0F);
-                long delay = (long) (maxPollData * 50);
-                Thread.sleep(delay);
+                Thread.sleep(10);
             } catch (InterruptedException ignored) {
             }
         }

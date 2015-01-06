@@ -1,7 +1,7 @@
 package com.ghosty.gamepad.desktop.utils;
 
-import com.ghosty.gamepad.desktop.listener.AxisListener;
-import com.ghosty.gamepad.desktop.listener.ButtonListener;
+import com.ghosty.gamepad.desktop.listener.ContinuousListener;
+import com.ghosty.gamepad.desktop.listener.EventBasedListener;
 import net.java.games.input.Component;
 import net.java.games.input.Component.Identifier.Axis;
 import net.java.games.input.Controller;
@@ -30,9 +30,19 @@ public abstract class ControllerUtils {
         return instance;
     }
 
+    public static void waitForKeyPress(Controller controller, Component component) {
+        boolean keyPressed = false;
+        while (!keyPressed) {
+            controller.poll();
+            if (component.getPollData() == 1.0) {
+                keyPressed = true;
+            }
+        }
+    }
+
     public static void startListeners(Controller controller) throws InterruptedException {
-        new Thread(new AxisListener(controller)).start();
-        new Thread(new ButtonListener(controller)).start();
+        new Thread(new ContinuousListener(controller)).start();
+        new Thread(new EventBasedListener(controller)).start();
     }
 
     public static boolean isXAxis(Component component) {

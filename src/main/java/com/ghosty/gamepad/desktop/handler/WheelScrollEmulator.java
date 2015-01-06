@@ -2,18 +2,16 @@ package com.ghosty.gamepad.desktop.handler;
 
 import com.ghosty.gamepad.desktop.utils.MouseController;
 import net.java.games.input.Component;
-import net.java.games.input.Component.Identifier.Button;
+
+import static java.lang.Math.abs;
 
 public class WheelScrollEmulator implements ControllerEventHandler {
 
     @Override
     public void handle(Component event) {
-        if (event.getPollData() == 1.0) {
-            if (event.getIdentifier().equals(Button._2)) {
-                MouseController.getInstance().mouseScrollDown();
-            } else if (event.getIdentifier().equals(Button._3)) {
-                MouseController.getInstance().mouseScrollUp();
-            }
+        //MouseController.getInstance().mouseScroll(-(int) (event.getPollData() * 3));
+        if (abs(event.getPollData()) > .1) {
+            MouseController.getInstance().mouseScroll(event.getPollData() > 0 ? 1 : -1);
         }
     }
 }

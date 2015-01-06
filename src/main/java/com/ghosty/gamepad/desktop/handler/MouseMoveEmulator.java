@@ -9,7 +9,7 @@ import static com.ghosty.gamepad.desktop.utils.ControllerUtils.isYAxis;
 import static com.ghosty.gamepad.desktop.utils.Direction.*;
 import static java.lang.Math.abs;
 
-public class AxisEventHandler implements ControllerEventHandler {
+public class MouseMoveEmulator implements ControllerEventHandler {
 
     @Override
     public void handle(Component event) {

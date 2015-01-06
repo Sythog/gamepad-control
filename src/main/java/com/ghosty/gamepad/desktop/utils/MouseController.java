@@ -13,9 +13,14 @@ public final class MouseController {
         this.robot = new Robot();
     }
 
-    public static synchronized MouseController getInstance() throws AWTException {
+    public static synchronized MouseController getInstance() {
         if (instance == null) {
-            instance = new MouseController();
+            try {
+                instance = new MouseController();
+            } catch (AWTException e) {
+                System.out.println("FATAL error. Cannot create instance of MouseController");
+                throw new RuntimeException("Cannot create instance of MouseController");
+            }
         }
         return instance;
     }
@@ -52,5 +57,13 @@ public final class MouseController {
 
     public void mouseRightRelease() {
         robot.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
+    }
+
+    public void mouseScrollDown() {
+        robot.mouseWheel(1);
+    }
+
+    public void mouseScrollUp() {
+        robot.mouseWheel(-1);
     }
 }

@@ -1,8 +1,9 @@
 package com.ghosty.gamepad.desktop.listener;
 
-import com.ghosty.gamepad.desktop.handler.ButtonAEventHandler;
-import com.ghosty.gamepad.desktop.handler.ButtonBEventHandler;
 import com.ghosty.gamepad.desktop.handler.ControllerEventHandler;
+import com.ghosty.gamepad.desktop.handler.LeftMouseClickEmulator;
+import com.ghosty.gamepad.desktop.handler.RightMouseClickEmulator;
+import com.ghosty.gamepad.desktop.handler.WheelScrollEmulator;
 import com.google.common.collect.ImmutableMap;
 import net.java.games.input.Component.Identifier;
 import net.java.games.input.Component.Identifier.Button;
@@ -15,8 +16,10 @@ public class ButtonListener implements Runnable {
 
     private static final Map<Identifier, ControllerEventHandler> BUTTONS_HANDLER_MAP =
             ImmutableMap.<Identifier, ControllerEventHandler>builder()
-                    .put(Button._0, new ButtonAEventHandler())
-                    .put(Button._1, new ButtonBEventHandler())
+                    .put(Button._0, new LeftMouseClickEmulator())       // A
+                    .put(Button._1, new RightMouseClickEmulator())      // B
+                    .put(Button._2, new WheelScrollEmulator())          // X
+                    .put(Button._3, new WheelScrollEmulator())          // Y
                     .build();
 
     private Controller controller;

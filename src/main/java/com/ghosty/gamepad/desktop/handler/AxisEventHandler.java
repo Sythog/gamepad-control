@@ -4,8 +4,6 @@ import com.ghosty.gamepad.desktop.utils.MouseController;
 import com.ghosty.gamepad.desktop.utils.MouseMove;
 import net.java.games.input.Component;
 
-import java.awt.*;
-
 import static com.ghosty.gamepad.desktop.utils.ControllerUtils.isXAxis;
 import static com.ghosty.gamepad.desktop.utils.ControllerUtils.isYAxis;
 import static com.ghosty.gamepad.desktop.utils.Direction.*;
@@ -15,12 +13,9 @@ public class AxisEventHandler implements ControllerEventHandler {
 
     @Override
     public void handle(Component event) {
-        try {
-            MouseMove move = extractMouseMove(event);
-            if (move != null) {
-                MouseController.getInstance().moveMouse(move);
-            }
-        } catch (AWTException ignored) {
+        MouseMove move = extractMouseMove(event);
+        if (move != null) {
+            MouseController.getInstance().moveMouse(move);
         }
     }
 

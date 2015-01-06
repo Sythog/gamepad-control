@@ -11,6 +11,8 @@ import java.util.stream.Stream;
 
 public abstract class ControllerUtils {
 
+    public static final float ANALOG_STICK_DEAD_ZONE = .1F;
+
     public static Controller getController(Controller.Type type) throws InterruptedException {
         Controller instance;
         do {

@@ -4,8 +4,7 @@ import com.ghosty.gamepad.desktop.utils.MouseController;
 import com.ghosty.gamepad.desktop.utils.MouseMove;
 import net.java.games.input.Component;
 
-import static com.ghosty.gamepad.desktop.utils.ControllerUtils.isXAxis;
-import static com.ghosty.gamepad.desktop.utils.ControllerUtils.isYAxis;
+import static com.ghosty.gamepad.desktop.utils.ControllerUtils.*;
 import static com.ghosty.gamepad.desktop.utils.Direction.*;
 import static java.lang.Math.abs;
 
@@ -21,7 +20,7 @@ public class MouseMoveEmulator implements ControllerEventHandler {
 
     private MouseMove extractMouseMove(Component component) {
         float axisMove = component.getPollData();
-        if (abs(axisMove) < .1) {
+        if (abs(axisMove) < ANALOG_STICK_DEAD_ZONE) {
             return null;
         }
         int speed = (int) (10 * abs(axisMove));

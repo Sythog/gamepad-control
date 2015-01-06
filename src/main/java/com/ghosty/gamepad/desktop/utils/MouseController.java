@@ -59,7 +59,11 @@ public final class MouseController {
         robot.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
     }
 
-    public void mouseScroll(int speed) {
-        robot.mouseWheel(-speed);
+    public void mouseScrollUp() {
+        robot.mouseWheel(-1);
+    }
+
+    public void mouseScrollDown() {
+        robot.mouseWheel(1);
     }
 }

@@ -9,9 +9,13 @@ public class WheelScrollEmulator implements ControllerEventHandler {
 
     @Override
     public void handle(Component event) {
-        //MouseController.getInstance().mouseScroll(-(int) (event.getPollData() * 3));
+        MouseController mouseController = MouseController.getInstance();
         if (abs(event.getPollData()) > .1) {
-            MouseController.getInstance().mouseScroll(event.getPollData() > 0 ? 1 : -1);
+            if (event.getPollData() > 0) {
+                mouseController.mouseScrollUp();
+            } else {
+                mouseController.mouseScrollDown();
+            }
         }
     }
 }

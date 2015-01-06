@@ -7,10 +7,11 @@ public class RightMouseClickEmulator implements ControllerEventHandler {
 
     @Override
     public void handle(Component event) {
+        MouseController mouseController = MouseController.getInstance();
         if (event.getPollData() == 1.0) {
-            MouseController.getInstance().mouseRightPress();
+            mouseController.mouseRightPress();
         } else {
-            MouseController.getInstance().mouseRightRelease();
+            mouseController.mouseRightRelease();
         }
     }
 }

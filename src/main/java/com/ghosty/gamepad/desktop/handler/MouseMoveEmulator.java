@@ -4,7 +4,7 @@ import com.ghosty.gamepad.desktop.utils.MouseController;
 import com.ghosty.gamepad.desktop.utils.MouseMove;
 import net.java.games.input.Component;
 
-import static com.ghosty.gamepad.desktop.utils.ControllerUtils.*;
+import static com.ghosty.gamepad.desktop.utils.ApplicationUtils.*;
 import static com.ghosty.gamepad.desktop.utils.Direction.*;
 import static java.lang.Math.abs;
 

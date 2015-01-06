@@ -1,5 +1,6 @@
 package com.ghosty.gamepad.desktop.listener;
 
+import com.ghosty.gamepad.desktop.handler.ControllerEventHandler;
 import com.ghosty.gamepad.desktop.handler.MouseMoveEmulator;
 import com.ghosty.gamepad.desktop.handler.WheelScrollEmulator;
 import net.java.games.input.Component;
@@ -8,23 +9,10 @@ import net.java.games.input.Controller;
 
 import java.util.stream.Stream;
 
-public class ContinuousListener implements ControllerListener {
-
-    private Controller controller;
-
-    private Component xAxis;
-    private Component yAxis;
-    private Component zAxis;
-    private MouseMoveEmulator eventHandler;
-    private WheelScrollEmulator scrollEmulator;
+public class ContinuousListener extends ControllerListener {
 
     public ContinuousListener(Controller controller) {
-        this.controller = controller;
-        this.xAxis = controller.getComponent(Axis.X);
-        this.yAxis = controller.getComponent(Axis.Y);
-        this.zAxis = controller.getComponent(Axis.Z);
-        this.eventHandler = new MouseMoveEmulator();
-        this.scrollEmulator = new WheelScrollEmulator();
+        super(controller);
     }
 
     @SuppressWarnings("InfiniteLoopStatement")
@@ -32,9 +20,16 @@ public class ContinuousListener implements ControllerListener {
     public void run() {
         while (true) {
             controller.poll();
-            eventHandler.handle(xAxis);
-            eventHandler.handle(yAxis);
-            scrollEmulator.handle(zAxis);
+            Component xAxis = controller.getComponent(Axis.X);
+            Component yAxis = controller.getComponent(Axis.Y);
+            Component zAxis = controller.getComponent(Axis.Z);      // RT & LT
+            ControllerEventHandler moveEmulator = new MouseMoveEmulator();
+            ControllerEventHandler scrollEmulator = new WheelScrollEmulator();
+            if (handlersEnabled) {
+                moveEmulator.handle(xAxis);
+                moveEmulator.handle(yAxis);
+                scrollEmulator.handle(zAxis);
+            }
             try {
                 float maxPollData = Stream.of(xAxis, yAxis, zAxis)
                         .map(Component::getPollData)

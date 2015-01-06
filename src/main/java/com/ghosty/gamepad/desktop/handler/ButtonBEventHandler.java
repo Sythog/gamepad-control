@@ -5,15 +5,15 @@ import net.java.games.input.Component;
 
 import java.awt.*;
 
-public class ButtonAEventHandler implements ControllerEventHandler {
+public class ButtonBEventHandler implements ControllerEventHandler {
 
     @Override
     public void handle(Component event) {
         try {
             if (event.getPollData() == 1.0) {
-                MouseController.getInstance().mouseLeftPress();
+                MouseController.getInstance().mouseRightPress();
             } else {
-                MouseController.getInstance().mouseLeftRelease();
+                MouseController.getInstance().mouseRightRelease();
             }
         } catch (AWTException ignored) {
         }

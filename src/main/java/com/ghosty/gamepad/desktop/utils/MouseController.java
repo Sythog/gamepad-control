@@ -38,8 +38,19 @@ public final class MouseController {
         }
     }
 
-    public void mouseLeftClick() {
+    public void mouseLeftPress() {
         robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+    }
+
+    public void mouseLeftRelease() {
         robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+    }
+
+    public void mouseRightPress() {
+        robot.mousePress(InputEvent.BUTTON3_DOWN_MASK);
+    }
+
+    public void mouseRightRelease() {
+        robot.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
     }
 }

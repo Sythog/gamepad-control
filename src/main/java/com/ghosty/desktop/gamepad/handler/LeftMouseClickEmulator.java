@@ -1,16 +1,15 @@
-package com.ghosty.gamepad.desktop.handler;
+package com.ghosty.desktop.gamepad.handler;
 
-import com.ghosty.gamepad.desktop.utils.MouseController;
+import com.ghosty.desktop.gamepad.utils.ApplicationUtils;
+import com.ghosty.desktop.gamepad.utils.MouseController;
 import net.java.games.input.Component;
-
-import static com.ghosty.gamepad.desktop.utils.ApplicationUtils.PRESSED;
 
 public class LeftMouseClickEmulator implements ControllerEventHandler {
 
     @Override
     public void handle(Component event) {
         MouseController mouseController = MouseController.getInstance();
-        if (event.getPollData() == PRESSED) {
+        if (event.getPollData() == ApplicationUtils.PRESSED) {
             mouseController.mouseLeftPress();
         } else {
             mouseController.mouseLeftRelease();

@@ -1,8 +1,8 @@
-package com.ghosty.gamepad.desktop.listener;
+package com.ghosty.desktop.gamepad.listener;
 
-import com.ghosty.gamepad.desktop.handler.ControllerEventHandler;
-import com.ghosty.gamepad.desktop.handler.MouseMoveEmulator;
-import com.ghosty.gamepad.desktop.handler.WheelScrollEmulator;
+import com.ghosty.desktop.gamepad.handler.ControllerEventHandler;
+import com.ghosty.desktop.gamepad.handler.MouseMoveEmulator;
+import com.ghosty.desktop.gamepad.handler.WheelScrollEmulator;
 import net.java.games.input.Component;
 import net.java.games.input.Component.Identifier.Axis;
 import net.java.games.input.Controller;

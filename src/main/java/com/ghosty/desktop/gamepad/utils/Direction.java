@@ -1,4 +1,4 @@
-package com.ghosty.gamepad.desktop.utils;
+package com.ghosty.desktop.gamepad.utils;
 
 public enum Direction {
 

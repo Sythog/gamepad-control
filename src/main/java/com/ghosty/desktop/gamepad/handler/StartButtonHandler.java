@@ -1,15 +1,14 @@
-package com.ghosty.gamepad.desktop.handler;
+package com.ghosty.desktop.gamepad.handler;
 
-import com.ghosty.gamepad.desktop.listener.ControllerListener;
+import com.ghosty.desktop.gamepad.listener.ControllerListener;
+import com.ghosty.desktop.gamepad.utils.ApplicationUtils;
 import net.java.games.input.Component;
-
-import static com.ghosty.gamepad.desktop.utils.ApplicationUtils.RELEASED;
 
 public class StartButtonHandler implements ControllerEventHandler {
 
     @Override
     public void handle(Component event) {
-        if (event.getPollData() == RELEASED) {
+        if (event.getPollData() == ApplicationUtils.RELEASED) {
             ControllerListener.toggleHandlers();
         }
     }

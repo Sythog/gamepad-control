@@ -1,11 +1,10 @@
-package com.ghosty.gamepad.desktop.handler;
+package com.ghosty.desktop.gamepad.handler;
 
-import com.ghosty.gamepad.desktop.utils.MouseController;
-import com.ghosty.gamepad.desktop.utils.MouseMove;
+import com.ghosty.desktop.gamepad.utils.ApplicationUtils;
+import com.ghosty.desktop.gamepad.utils.MouseController;
+import com.ghosty.desktop.gamepad.utils.MouseMove;
 import net.java.games.input.Component;
 
-import static com.ghosty.gamepad.desktop.utils.ApplicationUtils.*;
-import static com.ghosty.gamepad.desktop.utils.Direction.*;
 import static java.lang.Math.abs;
 
 public class MouseMoveEmulator implements ControllerEventHandler {
@@ -20,18 +19,18 @@ public class MouseMoveEmulator implements ControllerEventHandler {
 
     private MouseMove extractMouseMove(Component component) {
         float axisMove = component.getPollData();
-        if (abs(axisMove) < ANALOG_STICK_DEAD_ZONE) {
+        if (abs(axisMove) < ApplicationUtils.ANALOG_STICK_DEAD_ZONE) {
             return null;
         }
         int speed = (int) (10 * abs(axisMove));
-        if (isXAxis(component)) {
+        if (ApplicationUtils.isXAxis(component)) {
             if (axisMove > 0) {
                 return new MouseMove(RIGHT, speed);
             } else {
                 return new MouseMove(LEFT, speed);
             }
         }
-        if (isYAxis(component)) {
+        if (ApplicationUtils.isYAxis(component)) {
             if (axisMove > 0) {
                 return new MouseMove(UP, speed);
             } else {

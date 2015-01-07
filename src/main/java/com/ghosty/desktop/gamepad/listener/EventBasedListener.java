@@ -1,9 +1,9 @@
-package com.ghosty.gamepad.desktop.listener;
+package com.ghosty.desktop.gamepad.listener;
 
-import com.ghosty.gamepad.desktop.handler.ControllerEventHandler;
-import com.ghosty.gamepad.desktop.handler.LeftMouseClickEmulator;
-import com.ghosty.gamepad.desktop.handler.RightMouseClickEmulator;
-import com.ghosty.gamepad.desktop.handler.StartButtonHandler;
+import com.ghosty.desktop.gamepad.handler.ControllerEventHandler;
+import com.ghosty.desktop.gamepad.handler.LeftMouseClickEmulator;
+import com.ghosty.desktop.gamepad.handler.RightMouseClickEmulator;
+import com.ghosty.desktop.gamepad.handler.StartButtonHandler;
 import com.google.common.collect.ImmutableMap;
 import net.java.games.input.Component.Identifier;
 import net.java.games.input.Component.Identifier.Button;

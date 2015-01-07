@@ -1,4 +1,4 @@
-package com.ghosty.gamepad.desktop.utils;
+package com.ghosty.desktop.gamepad.utils;
 
 import java.awt.*;
 import java.awt.event.InputEvent;

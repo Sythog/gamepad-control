@@ -1,7 +1,7 @@
-package com.ghosty.gamepad.desktop.utils;
+package com.ghosty.desktop.gamepad.utils;
 
-import com.ghosty.gamepad.desktop.listener.ContinuousListener;
-import com.ghosty.gamepad.desktop.listener.EventBasedListener;
+import com.ghosty.desktop.gamepad.listener.ContinuousListener;
+import com.ghosty.desktop.gamepad.listener.EventBasedListener;
 import net.java.games.input.Component;
 import net.java.games.input.Component.Identifier.Axis;
 import net.java.games.input.Controller;

@@ -1,4 +1,4 @@
-package com.ghosty.gamepad.desktop.handler;
+package com.ghosty.desktop.gamepad.handler;
 
 import net.java.games.input.Component;
 

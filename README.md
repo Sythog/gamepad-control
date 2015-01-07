@@ -1,2 +1,2 @@
-gamepad-control
+Gamepad Desktop Control
 ===============

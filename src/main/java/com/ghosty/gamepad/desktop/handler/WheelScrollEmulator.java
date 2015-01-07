@@ -11,12 +11,13 @@ public class WheelScrollEmulator implements ControllerEventHandler {
     @Override
     public void handle(Component event) {
         MouseController mouseController = MouseController.getInstance();
-        if (abs(event.getPollData()) > ANALOG_STICK_DEAD_ZONE) {
-            if (event.getPollData() > 0) {
-                mouseController.mouseScrollUp();
-            } else {
-                mouseController.mouseScrollDown();
-            }
+        if (abs(event.getPollData()) < ANALOG_STICK_DEAD_ZONE) {
+            return;
+        }
+        if (event.getPollData() > 0) {
+            mouseController.mouseScrollUp();
+        } else {
+            mouseController.mouseScrollDown();
         }
     }
 }

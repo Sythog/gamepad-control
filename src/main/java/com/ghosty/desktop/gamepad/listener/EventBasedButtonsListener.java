@@ -1,9 +1,6 @@
 package com.ghosty.desktop.gamepad.listener;
 
 import com.ghosty.desktop.gamepad.handler.ControllerEventHandler;
-import com.ghosty.desktop.gamepad.handler.LeftMouseClickEmulator;
-import com.ghosty.desktop.gamepad.handler.RightMouseClickEmulator;
-import com.ghosty.desktop.gamepad.handler.StartButtonHandler;
 import com.google.common.collect.ImmutableMap;
 import net.java.games.input.Component.Identifier;
 import net.java.games.input.Component.Identifier.Button;
@@ -12,16 +9,18 @@ import net.java.games.input.Event;
 
 import java.util.Map;
 
-public class EventBasedListener extends ControllerListener {
+import static com.ghosty.desktop.gamepad.handler.EventHandlers.*;
+
+public class EventBasedButtonsListener extends ControllerListener {
 
     private static final Map<Identifier, ControllerEventHandler> BUTTONS_HANDLER_MAP =
             ImmutableMap.<Identifier, ControllerEventHandler>builder()
-                    .put(Button._0, new LeftMouseClickEmulator())       // A
-                    .put(Button._1, new RightMouseClickEmulator())      // B
-                    .put(Button._7, new StartButtonHandler())           // Start button
+                    .put(Button._0, LEFT_MOUSE_CLICK_EMULATOR)       // A
+                    .put(Button._1, RIGHT_MOUSE_CLICK_EMULATOR)      // B
+                    .put(Button._7, START_BUTTON_HANDLER)            // Start button
                     .build();
 
-    public EventBasedListener(Controller controller) {
+    public EventBasedButtonsListener(Controller controller) {
         super(controller);
     }
 

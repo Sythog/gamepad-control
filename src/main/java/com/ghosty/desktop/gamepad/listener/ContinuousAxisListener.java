@@ -1,15 +1,15 @@
 package com.ghosty.desktop.gamepad.listener;
 
-import com.ghosty.desktop.gamepad.handler.ControllerEventHandler;
-import com.ghosty.desktop.gamepad.handler.MouseMoveEmulator;
-import com.ghosty.desktop.gamepad.handler.WheelScrollEmulator;
 import net.java.games.input.Component;
 import net.java.games.input.Component.Identifier.Axis;
 import net.java.games.input.Controller;
 
-public class ContinuousListener extends ControllerListener {
+import static com.ghosty.desktop.gamepad.handler.EventHandlers.MOUSE_MOVE_EMULATOR;
+import static com.ghosty.desktop.gamepad.handler.EventHandlers.WHEEL_SCROLL_EMULATOR;
 
-    public ContinuousListener(Controller controller) {
+public class ContinuousAxisListener extends ControllerListener {
+
+    public ContinuousAxisListener(Controller controller) {
         super(controller);
     }
 
@@ -21,12 +21,10 @@ public class ContinuousListener extends ControllerListener {
             Component xAxis = controller.getComponent(Axis.X);
             Component yAxis = controller.getComponent(Axis.Y);
             Component zAxis = controller.getComponent(Axis.Z);      // RT & LT
-            ControllerEventHandler moveEmulator = new MouseMoveEmulator();
-            ControllerEventHandler scrollEmulator = new WheelScrollEmulator();
             if (handlersEnabled) {
-                moveEmulator.handle(xAxis);
-                moveEmulator.handle(yAxis);
-                scrollEmulator.handle(zAxis);
+                MOUSE_MOVE_EMULATOR.handle(xAxis);
+                MOUSE_MOVE_EMULATOR.handle(yAxis);
+                WHEEL_SCROLL_EMULATOR.handle(zAxis);
             }
             try {
                 Thread.sleep(10);

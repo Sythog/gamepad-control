@@ -15,6 +15,6 @@ public abstract class ControllerListener implements Runnable {
 
     public static void toggleHandlers() {
         handlersEnabled ^= true;
-        System.out.println("Handlers have been " + (handlersEnabled ? "enabled" : "disables"));
+        System.out.println("Handlers have been " + (handlersEnabled ? "enabled" : "disabled"));
     }
 }

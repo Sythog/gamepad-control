@@ -1,7 +1,7 @@
 package com.ghosty.desktop.gamepad.utils;
 
-import com.ghosty.desktop.gamepad.listener.ContinuousListener;
-import com.ghosty.desktop.gamepad.listener.EventBasedListener;
+import com.ghosty.desktop.gamepad.listener.ContinuousAxisListener;
+import com.ghosty.desktop.gamepad.listener.EventBasedButtonsListener;
 import net.java.games.input.Component;
 import net.java.games.input.Component.Identifier.Axis;
 import net.java.games.input.Controller;
@@ -9,13 +9,11 @@ import net.java.games.input.ControllerEnvironment;
 
 import java.util.stream.Stream;
 
+import static com.ghosty.desktop.gamepad.utils.Direction.*;
+import static java.lang.Math.abs;
 import static net.java.games.input.Controller.Type.GAMEPAD;
 
 public abstract class ApplicationUtils {
-
-    public static final float ANALOG_STICK_DEAD_ZONE = .1F;
-    public static final float PRESSED = 1;
-    public static final float RELEASED = 0;
 
     public static Controller findGamepad() throws InterruptedException {
         Controller instance;
@@ -36,17 +34,37 @@ public abstract class ApplicationUtils {
         return instance;
     }
 
+    public static MouseMove extractMouseMove(Component component) {
+        float axisMove = component.getPollData();
+        int speed = (int) (10 * abs(axisMove));
+        if (isXAxis(component)) {
+            if (axisMove > 0) {
+                return new MouseMove(RIGHT, speed);
+            } else {
+                return new MouseMove(LEFT, speed);
+            }
+        }
+        if (isYAxis(component)) {
+            if (axisMove > 0) {
+                return new MouseMove(UP, speed);
+            } else {
+                return new MouseMove(DOWN, speed);
+            }
+        }
+        return null;
+    }
+
     public static void startListeners(Controller controller) {
-        new Thread(new ContinuousListener(controller), "Axis Listener").start();
-        new Thread(new EventBasedListener(controller), "Buttons Listener").start();
+        new Thread(new ContinuousAxisListener(controller), "Axis Listener").start();
+        new Thread(new EventBasedButtonsListener(controller), "Buttons Listener").start();
     }
 
 
-    public static boolean isXAxis(Component component) {
+    private static boolean isXAxis(Component component) {
         return component.getIdentifier().equals(Axis.X);
     }
 
-    public static boolean isYAxis(Component component) {
+    private static boolean isYAxis(Component component) {
         return component.getIdentifier().equals(Axis.Y);
     }
 }

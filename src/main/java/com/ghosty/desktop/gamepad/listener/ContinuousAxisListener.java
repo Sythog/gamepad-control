@@ -1,35 +1,32 @@
 package com.ghosty.desktop.gamepad.listener;
 
-import net.java.games.input.Component;
+import com.ghosty.desktop.gamepad.handler.ControllerEventHandler;
+import com.google.common.collect.ImmutableMap;
+import net.java.games.input.Component.Identifier;
 import net.java.games.input.Component.Identifier.Axis;
 import net.java.games.input.Controller;
 
-import static com.ghosty.desktop.gamepad.handler.EventHandlers.MOUSE_MOVE_EMULATOR;
-import static com.ghosty.desktop.gamepad.handler.EventHandlers.WHEEL_SCROLL_EMULATOR;
+import java.util.Map;
+
+import static com.ghosty.desktop.gamepad.handler.EventHandlers.*;
 
 public class ContinuousAxisListener extends ControllerListener {
 
+    private static final Map<Identifier, ControllerEventHandler> AXIS_HANDLER_MAP =
+            ImmutableMap.<Identifier, ControllerEventHandler>builder()
+                    .put(Axis.X, CURSOR_LEFT_RIGHT_MOVE_EMULATOR)
+                    .put(Axis.Y, CURSOR_UP_DOWN_MOVE_EMULATOR)
+                    .put(Axis.Z, WHEEL_SCROLL_EMULATOR)                 // RT & LT
+                    .build();
+
     public ContinuousAxisListener(Controller controller) {
-        super(controller);
+        super(controller, 10);
     }
 
-    @SuppressWarnings("InfiniteLoopStatement")
     @Override
-    public void run() {
-        while (true) {
-            controller.poll();
-            Component xAxis = controller.getComponent(Axis.X);
-            Component yAxis = controller.getComponent(Axis.Y);
-            Component zAxis = controller.getComponent(Axis.Z);      // RT & LT
-            if (handlersEnabled) {
-                MOUSE_MOVE_EMULATOR.handle(xAxis);
-                MOUSE_MOVE_EMULATOR.handle(yAxis);
-                WHEEL_SCROLL_EMULATOR.handle(zAxis);
-            }
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException ignored) {
-            }
+    public void processPollData() {
+        if (handlersEnabled) {
+            AXIS_HANDLER_MAP.forEach((axis, handler) -> handler.handle(controller.getComponent(axis)));
         }
     }
 }

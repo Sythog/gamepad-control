@@ -1,37 +1,24 @@
 package com.ghosty.desktop.gamepad.handler;
 
 import com.ghosty.desktop.gamepad.listener.ControllerListener;
-import com.ghosty.desktop.gamepad.utils.Action;
-import com.ghosty.desktop.gamepad.utils.MouseController;
-import com.ghosty.desktop.gamepad.utils.MouseMove;
-import net.java.games.input.Component;
 
-import static com.ghosty.desktop.gamepad.utils.ApplicationUtils.extractMouseMove;
-import static java.lang.Math.abs;
+import static com.ghosty.desktop.gamepad.handler.EventHandlerUtils.*;
+import static com.ghosty.desktop.gamepad.utils.Direction.*;
 
 public abstract class EventHandlers {
 
-    private static final MouseController MOUSE_CONTROLLER = MouseController.getInstance();
-    private static final float ANALOG_STICK_DEAD_ZONE = .1F;
-    private static final float PRESSED = 1;
-    private static final float RELEASED = 0;
-
     public static final ControllerEventHandler LEFT_MOUSE_CLICK_EMULATOR =
-            event -> buttonHandler(event, MOUSE_CONTROLLER::mouseLeftPress, MOUSE_CONTROLLER::mouseLeftRelease);
+            buttonHandler(MOUSE_CONTROLLER::mouseLeftPress, MOUSE_CONTROLLER::mouseLeftRelease);
 
     public static final ControllerEventHandler RIGHT_MOUSE_CLICK_EMULATOR =
-            event -> buttonHandler(event, MOUSE_CONTROLLER::mouseRightPress, MOUSE_CONTROLLER::mouseRightRelease);
+            buttonHandler(MOUSE_CONTROLLER::mouseRightPress, MOUSE_CONTROLLER::mouseRightRelease);
 
-    public static final ControllerEventHandler MOUSE_MOVE_EMULATOR = event ->
-            axisHandler(event, () -> {
-                MouseMove move = extractMouseMove(event);
-                if (move != null) {
-                    MOUSE_CONTROLLER.moveMouse(move);
-                }
-            });
+    public static final ControllerEventHandler CURSOR_LEFT_RIGHT_MOVE_EMULATOR = axisHandler(RIGHT, LEFT);
 
-    public static final ControllerEventHandler WHEEL_SCROLL_EMULATOR = event ->
-            axisHandler(event, () -> {
+    public static final ControllerEventHandler CURSOR_UP_DOWN_MOVE_EMULATOR = axisHandler(UP, DOWN);
+
+    public static final ControllerEventHandler WHEEL_SCROLL_EMULATOR =
+            analogComponentHandler(event -> {
                 if (event.getPollData() > 0) {
                     MOUSE_CONTROLLER.mouseScrollUp();
                 } else {
@@ -44,19 +31,4 @@ public abstract class EventHandlers {
             ControllerListener.toggleHandlers();
         }
     };
-
-    private static void buttonHandler(Component button, Action onPress, Action onRelease) {
-        if (button.getPollData() == PRESSED) {
-            onPress.perform();
-        } else {
-            onRelease.perform();
-        }
-    }
-
-    private static void axisHandler(Component axis, Action onAxisMove) {
-        if (abs(axis.getPollData()) < ANALOG_STICK_DEAD_ZONE) {
-            return;
-        }
-        onAxisMove.perform();
-    }
 }

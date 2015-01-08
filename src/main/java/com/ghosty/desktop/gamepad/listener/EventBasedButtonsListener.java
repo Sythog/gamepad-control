@@ -21,27 +21,20 @@ public class EventBasedButtonsListener extends ControllerListener {
                     .build();
 
     public EventBasedButtonsListener(Controller controller) {
-        super(controller);
+        super(controller, 50);
     }
 
     @SuppressWarnings("InfiniteLoopStatement")
     @Override
-    public void run() {
-        while (true) {
-            controller.poll();
-            Event event = new Event();
-            while (controller.getEventQueue().getNextEvent(event)) {
-                Identifier id = event.getComponent().getIdentifier();
-                if (id instanceof Button && (id.equals(Button._7) || handlersEnabled)) {
-                    ControllerEventHandler handler = BUTTONS_HANDLER_MAP.get(id);
-                    if (handler != null) {
-                        handler.handle(event.getComponent());
-                    }
+    public void processPollData() {
+        Event event = new Event();
+        while (controller.getEventQueue().getNextEvent(event)) {
+            Identifier id = event.getComponent().getIdentifier();
+            if (id instanceof Button && (id.equals(Button._7) || handlersEnabled)) {
+                ControllerEventHandler handler = BUTTONS_HANDLER_MAP.get(id);
+                if (handler != null) {
+                    handler.handle(event.getComponent());
                 }
-            }
-            try {
-                Thread.sleep(50);
-            } catch (InterruptedException ignored) {
             }
         }
     }

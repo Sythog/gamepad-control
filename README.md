@@ -4,6 +4,5 @@ Gamepad Desktop Control
 
 ### TODO List
 
-* Logging
 * Settings
 * Multiple Gamepads support

@@ -1,6 +1,7 @@
 package com.ghosty.desktop.gamepad.handler;
 
 import com.ghosty.desktop.gamepad.listener.ControllerListener;
+import com.ghosty.desktop.gamepad.utils.Action;
 import com.ghosty.desktop.gamepad.utils.MouseController;
 import com.ghosty.desktop.gamepad.utils.MouseMove;
 import net.java.games.input.Component;
@@ -21,26 +22,22 @@ public abstract class EventHandlers {
     public static final ControllerEventHandler RIGHT_MOUSE_CLICK_EMULATOR =
             event -> buttonHandler(event, MOUSE_CONTROLLER::mouseRightPress, MOUSE_CONTROLLER::mouseRightRelease);
 
-    public static final ControllerEventHandler MOUSE_MOVE_EMULATOR = event -> {
-        if (abs(event.getPollData()) < ANALOG_STICK_DEAD_ZONE) {
-            return;
-        }
-        MouseMove move = extractMouseMove(event);
-        if (move != null) {
-            MOUSE_CONTROLLER.moveMouse(move);
-        }
-    };
+    public static final ControllerEventHandler MOUSE_MOVE_EMULATOR = event ->
+            axisHandler(event, () -> {
+                MouseMove move = extractMouseMove(event);
+                if (move != null) {
+                    MOUSE_CONTROLLER.moveMouse(move);
+                }
+            });
 
-    public static final ControllerEventHandler WHEEL_SCROLL_EMULATOR = event -> {
-        if (abs(event.getPollData()) < ANALOG_STICK_DEAD_ZONE) {
-            return;
-        }
-        if (event.getPollData() > 0) {
-            MOUSE_CONTROLLER.mouseScrollUp();
-        } else {
-            MOUSE_CONTROLLER.mouseScrollDown();
-        }
-    };
+    public static final ControllerEventHandler WHEEL_SCROLL_EMULATOR = event ->
+            axisHandler(event, () -> {
+                if (event.getPollData() > 0) {
+                    MOUSE_CONTROLLER.mouseScrollUp();
+                } else {
+                    MOUSE_CONTROLLER.mouseScrollDown();
+                }
+            });
 
     public static final ControllerEventHandler START_BUTTON_HANDLER = event -> {
         if (event.getPollData() == RELEASED) {
@@ -56,8 +53,10 @@ public abstract class EventHandlers {
         }
     }
 
-    @FunctionalInterface
-    private interface Action {
-        void perform();
+    private static void axisHandler(Component axis, Action onAxisMove) {
+        if (abs(axis.getPollData()) < ANALOG_STICK_DEAD_ZONE) {
+            return;
+        }
+        onAxisMove.perform();
     }
 }

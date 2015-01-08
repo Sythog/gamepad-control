@@ -38,18 +38,10 @@ public abstract class ApplicationUtils {
         float axisMove = component.getPollData();
         int speed = (int) (10 * abs(axisMove));
         if (isXAxis(component)) {
-            if (axisMove > 0) {
-                return new MouseMove(RIGHT, speed);
-            } else {
-                return new MouseMove(LEFT, speed);
-            }
+            return new MouseMove(axisMove > 0 ? RIGHT : LEFT, speed);
         }
         if (isYAxis(component)) {
-            if (axisMove > 0) {
-                return new MouseMove(UP, speed);
-            } else {
-                return new MouseMove(DOWN, speed);
-            }
+            return new MouseMove(axisMove > 0 ? UP : DOWN, speed);
         }
         return null;
     }

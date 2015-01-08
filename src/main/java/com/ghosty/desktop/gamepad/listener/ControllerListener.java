@@ -1,8 +1,12 @@
 package com.ghosty.desktop.gamepad.listener;
 
 import net.java.games.input.Controller;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class ControllerListener implements Runnable {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ControllerListener.class);
 
     protected Controller controller;
     protected int delay;
@@ -30,7 +34,7 @@ public abstract class ControllerListener implements Runnable {
 
     public static void toggleHandlers() {
         handlersEnabled ^= true;
-        System.out.println("Handlers have been " + (handlersEnabled ? "enabled" : "disabled"));
+        LOG.info("Handlers have been " + (handlersEnabled ? "enabled" : "disabled"));
     }
 
     protected abstract void processPollData();

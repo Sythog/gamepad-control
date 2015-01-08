@@ -1,9 +1,9 @@
-package com.ghosty.desktop.gamepad.handler;
+package com.ghosty.desktop.gamepad.utils;
 
-import com.ghosty.desktop.gamepad.utils.Action;
-import com.ghosty.desktop.gamepad.utils.Direction;
-import com.ghosty.desktop.gamepad.utils.MouseController;
-import com.ghosty.desktop.gamepad.utils.MouseMove;
+import com.ghosty.desktop.gamepad.handler.ControllerEventHandler;
+import com.ghosty.desktop.gamepad.model.Action;
+import com.ghosty.desktop.gamepad.model.Direction;
+import com.ghosty.desktop.gamepad.model.MouseMove;
 import net.java.games.input.Component;
 
 import java.util.function.Consumer;

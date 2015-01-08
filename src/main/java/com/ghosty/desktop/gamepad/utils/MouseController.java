@@ -1,12 +1,17 @@
 package com.ghosty.desktop.gamepad.utils;
 
+import com.ghosty.desktop.gamepad.model.MouseMove;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.awt.*;
 import java.awt.event.InputEvent;
 
 public final class MouseController {
 
-    private static MouseController instance;
+    private static final Logger LOG = LoggerFactory.getLogger(MouseController.class);
 
+    private static MouseController instance;
     private final Robot robot;
 
     private MouseController() throws AWTException {
@@ -18,7 +23,7 @@ public final class MouseController {
             try {
                 instance = new MouseController();
             } catch (AWTException e) {
-                System.out.println("FATAL error. Cannot create instance of MouseController");
+                LOG.error("FATAL error. Cannot create instantiate of MouseController");
                 throw new RuntimeException("Cannot create instance of MouseController");
             }
         }

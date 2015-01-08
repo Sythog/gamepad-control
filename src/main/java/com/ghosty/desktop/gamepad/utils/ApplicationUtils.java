@@ -4,12 +4,16 @@ import com.ghosty.desktop.gamepad.listener.ContinuousAxisListener;
 import com.ghosty.desktop.gamepad.listener.EventBasedButtonsListener;
 import net.java.games.input.Controller;
 import net.java.games.input.ControllerEnvironment;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.stream.Stream;
 
 import static net.java.games.input.Controller.Type.GAMEPAD;
 
 public abstract class ApplicationUtils {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ApplicationUtils.class);
 
     public static Controller findGamepad() throws InterruptedException {
         Controller instance;
@@ -19,14 +23,14 @@ public abstract class ApplicationUtils {
                     .filter(controller -> controller.getType() == GAMEPAD)
                     .findAny()
                     .orElseGet(() -> {
-                        System.out.println("No controllers of type GAMEPAD found! Will retry in 5 sec");
+                        LOG.error("No controllers of type GAMEPAD found! Will retry in 5 sec");
                         return null;
                     });
             if (instance == null) {
                 Thread.sleep(5000);
             }
         } while (instance == null);
-        System.out.println("Found a controller of type GAMEPAD: " + instance);
+        LOG.info("Found a controller of type GAMEPAD: {}", instance);
         return instance;
     }
 

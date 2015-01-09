@@ -7,4 +7,4 @@ Gamepad Desktop Control
 * Settings
 * Multiple Gamepads support
 
-#####Copyright &copy; 2015. Ievgen Starodiedov
+*Copyright &copy; 2015. Ievgen Starodiedov*

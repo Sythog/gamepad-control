@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.awt.*;
 import java.awt.event.InputEvent;
 
-public final class MouseController {
+public class MouseController {
 
     private static final Logger LOG = LoggerFactory.getLogger(MouseController.class);
 

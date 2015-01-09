@@ -15,12 +15,15 @@ import java.util.function.Consumer;
 
 import static java.lang.Math.abs;
 
-public abstract class EventHandlerUtils {
+public class EventHandlerUtils {
 
-    public static final MouseController MOUSE_CONTROLLER = MouseController.getInstance();
+    public static MouseController MOUSE_CONTROLLER = MouseController.getInstance();
     public static final float ANALOG_STICK_DEAD_ZONE = .1F;
     public static final float PRESSED = 1;
     public static final float RELEASED = 0;
+
+    private EventHandlerUtils() {
+    }
 
     public static ControllerEventHandler buttonHandler(Action onPress, Action onRelease) {
         return button -> {

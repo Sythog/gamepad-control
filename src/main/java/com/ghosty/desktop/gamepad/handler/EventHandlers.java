@@ -5,8 +5,6 @@
 
 package com.ghosty.desktop.gamepad.handler;
 
-import com.ghosty.desktop.gamepad.listener.ControllerListener;
-
 import static com.ghosty.desktop.gamepad.model.Direction.*;
 import static com.ghosty.desktop.gamepad.utils.EventHandlerUtils.*;
 
@@ -30,10 +28,4 @@ public abstract class EventHandlers {
                     MOUSE_CONTROLLER.mouseScrollDown();
                 }
             });
-
-    public static final ControllerEventHandler START_BUTTON_HANDLER = event -> {
-        if (event.getPollData() == RELEASED) {
-            ControllerListener.toggleHandlers();
-        }
-    };
 }

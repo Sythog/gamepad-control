@@ -3,7 +3,7 @@ Gamepad Desktop Control
 ![alt tag](http://i62.tinypic.com/262bk86.jpg)
 
 ## Description
-Gamepad Desktop Control is GNU GPL licensed application based on [JInput library](https://github.com/jinput/jinput). <br/>
+Gamepad Desktop Control is [GNU GPL licensed](http://www.gnu.org/licenses/gpl.html) application based on [JInput library](https://github.com/jinput/jinput). <br/>
 The goal of this application is to provide an ability to use a gamepad to control your desktop mouse cursor.
 
 ## Default Controls

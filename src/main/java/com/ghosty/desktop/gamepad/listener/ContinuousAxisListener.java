@@ -9,7 +9,6 @@ import com.ghosty.desktop.gamepad.handler.ControllerEventHandler;
 import com.google.common.collect.ImmutableMap;
 import net.java.games.input.Component.Identifier;
 import net.java.games.input.Component.Identifier.Axis;
-import net.java.games.input.Controller;
 
 import java.util.Map;
 
@@ -24,13 +23,13 @@ public class ContinuousAxisListener extends ControllerListener {
                     .put(Axis.Z, WHEEL_SCROLL_EMULATOR)                 // RT & LT
                     .build();
 
-    public ContinuousAxisListener(Controller controller) {
-        super(controller, 10);
+    public ContinuousAxisListener(ControllerListenerContainer container) {
+        super(container, 10);
     }
 
     @Override
     public void processPollData() {
-        if (handlersEnabled) {
+        if (container.handlersEnabled()) {
             AXIS_HANDLER_MAP.forEach((axis, handler) -> handler.handle(controller.getComponent(axis)));
         }
     }

@@ -5,8 +5,7 @@
 
 package com.ghosty.desktop.gamepad.utils;
 
-import com.ghosty.desktop.gamepad.listener.ContinuousAxisListener;
-import com.ghosty.desktop.gamepad.listener.EventBasedButtonsListener;
+import com.ghosty.desktop.gamepad.listener.ControllerListenerContainer;
 import net.java.games.input.Controller;
 import net.java.games.input.ControllerEnvironment;
 import org.slf4j.Logger;
@@ -40,7 +39,6 @@ public abstract class ApplicationUtils {
     }
 
     public static void startListeners(Controller controller) {
-        new Thread(new ContinuousAxisListener(controller), "Axis Listener").start();
-        new Thread(new EventBasedButtonsListener(controller), "Buttons Listener").start();
+        new ControllerListenerContainer(controller).startListeners();
     }
 }

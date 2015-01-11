@@ -35,8 +35,10 @@ public class Settings extends javax.swing.JFrame {
         initComponents();
         lmbTextBox.setText(propertyManager.getProperty(LEFT_CLICK_PROPERTY_NAME));
         rmbTextBox.setText(propertyManager.getProperty(RIGHT_CLICK_PROPERTY_NAME));
-        lmbTextBox.addMouseListener(new TextBoxesOneMouseClickListener(lmbTextBox, LEFT_CLICK_PROPERTY_NAME));
-        rmbTextBox.addMouseListener(new TextBoxesOneMouseClickListener(rmbTextBox, RIGHT_CLICK_PROPERTY_NAME));
+        lmbTextBox.addMouseListener(
+                new TextBoxesOneMouseClickListener(lmbTextBox, LEFT_CLICK_PROPERTY_NAME, "Left Mouse Click"));
+        rmbTextBox.addMouseListener(
+                new TextBoxesOneMouseClickListener(rmbTextBox, RIGHT_CLICK_PROPERTY_NAME, "Right Mouse Click"));
     }
 
     /**

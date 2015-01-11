@@ -26,10 +26,12 @@ public class TextBoxesOneMouseClickListener extends MouseAdapter {
 
     private JTextField textField;
     private String propName;
+    private String propDesc;
 
-    public TextBoxesOneMouseClickListener(JTextField textField, String propName) {
+    public TextBoxesOneMouseClickListener(JTextField textField, String propName, String propDesc) {
         this.textField = textField;
         this.propName = propName;
+        this.propDesc = propDesc;
     }
 
     @Override
@@ -40,7 +42,7 @@ public class TextBoxesOneMouseClickListener extends MouseAdapter {
                 .ifPresent(container -> {
                     container.toggleHandlers(true);
                     UIUtils.TRAY_ICON.displayMessage(container.getController().getName(),
-                            "Press button to change bind", TrayIcon.MessageType.INFO);
+                            "Press button to change bind for " + propDesc, TrayIcon.MessageType.INFO);
                     listenToFirstButtonPressed(container);
                     textField.setText(propertyManager.getProperty(propName));
                     container.toggleHandlers(true);

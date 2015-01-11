@@ -79,7 +79,7 @@
                                 <taskdef name="groovyc" classname="org.codehaus.groovy.ant.Groovyc">
                                     <classpath refid="maven.test.classpath"/>
                                 </taskdef>
-                                <mkdir dir="${basedir}/src/test/groovy"/>
+                                <mkdir dir="${basedir}/target/test-classes"/>
                                 <groovyc srcdir="${basedir}/src/test/groovy"
                                          destdir="${project.build.testOutputDirectory}" encoding="UTF-8">
                                     <classpath refid="maven.test.classpath"/>

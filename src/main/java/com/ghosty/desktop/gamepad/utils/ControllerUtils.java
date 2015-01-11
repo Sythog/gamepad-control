@@ -6,18 +6,24 @@
 package com.ghosty.desktop.gamepad.utils;
 
 import com.ghosty.desktop.gamepad.listener.ControllerListenerContainer;
+import com.ghosty.desktop.gamepad.prop.AutoStartupPropertyListener;
+import com.ghosty.desktop.gamepad.prop.PropertyManager;
+import com.google.common.collect.Lists;
 import net.java.games.input.Controller;
 import net.java.games.input.ControllerEnvironment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 import static net.java.games.input.Controller.Type.GAMEPAD;
 
-public abstract class ApplicationUtils {
+public abstract class ControllerUtils {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ApplicationUtils.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ControllerUtils.class);
+
+    public static final List<ControllerListenerContainer> LISTENER_CONTAINERS = Lists.newArrayList();
 
     public static Controller findGamepad() throws InterruptedException {
         Controller instance;
@@ -38,7 +44,13 @@ public abstract class ApplicationUtils {
         return instance;
     }
 
-    public static void startListeners(Controller controller) {
-        new ControllerListenerContainer(controller).startListeners();
+    public static void startControllerListeners(Controller controller) {
+        ControllerListenerContainer container = new ControllerListenerContainer(controller);
+        LISTENER_CONTAINERS.add(container);
+        container.startListeners();
+    }
+
+    public static void registerPropertyListeners() {
+        PropertyManager.getInstance().addListener("gdc.auto.startup", new AutoStartupPropertyListener());
     }
 }

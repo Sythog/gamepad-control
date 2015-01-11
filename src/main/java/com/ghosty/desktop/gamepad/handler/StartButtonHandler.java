@@ -1,3 +1,8 @@
+/*
+ * Gamepad Desktop Control
+ * Copyright (c) 2015. Ievgen Starodiedov
+ */
+
 package com.ghosty.desktop.gamepad.handler;
 
 import com.ghosty.desktop.gamepad.listener.ControllerListenerContainer;

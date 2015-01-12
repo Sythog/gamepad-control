@@ -56,9 +56,11 @@ public class EventBasedButtonsListener extends ControllerListener {
     public void changeComponentToHandle(ControllerEventHandler handler, Identifier component) {
         if (buttonsHandlerMap.containsValue(handler)) {
             BiMap<ControllerEventHandler, String> inverse = buttonsHandlerMap.inverse();
-            inverse.remove(handler);
-            inverse.put(handler, component.getName());
-            buttonsHandlerMap = inverse.inverse();
+            if (!inverse.containsValue(component.getName())) {
+                inverse.remove(handler);
+                inverse.put(handler, component.getName());
+                buttonsHandlerMap = inverse.inverse();
+            }
         }
     }
 }

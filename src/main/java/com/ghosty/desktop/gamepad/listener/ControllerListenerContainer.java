@@ -21,14 +21,30 @@ public class ControllerListenerContainer {
     private Controller controller;
     private boolean handlersEnabled;
 
-    private EventBasedButtonsListener buttonsListener;
-    private ContinuousAxisListener axisListener;
+    private ControllerListener buttonsListener;
+    private ControllerListener axisListener;
 
     public ControllerListenerContainer(Controller controller) {
         this.controller = controller;
         this.buttonsListener = new EventBasedButtonsListener(this);
         this.axisListener = new ContinuousAxisListener(this);
         this.handlersEnabled = false;
+    }
+
+    public ControllerListener getButtonsListener() {
+        return buttonsListener;
+    }
+
+    public ControllerListener getAxisListener() {
+        return axisListener;
+    }
+
+    public Controller getController() {
+        return controller;
+    }
+
+    public boolean handlersEnabled() {
+        return handlersEnabled;
     }
 
     public void startListeners() {
@@ -52,13 +68,5 @@ public class ControllerListenerContainer {
                     "Gamepad " + (handlersEnabled ? "enabled" : "disabled"),
                     TrayIcon.MessageType.INFO);
         }
-    }
-
-    public Controller getController() {
-        return controller;
-    }
-
-    public boolean handlersEnabled() {
-        return handlersEnabled;
     }
 }

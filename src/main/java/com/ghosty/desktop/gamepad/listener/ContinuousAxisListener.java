@@ -33,4 +33,14 @@ public class ContinuousAxisListener extends ControllerListener {
             AXIS_HANDLER_MAP.forEach((axis, handler) -> handler.handle(controller.getComponent(axis)));
         }
     }
+
+    @Override
+    public ControllerEventHandler getHandlerForComponent(Identifier component) {
+        return AXIS_HANDLER_MAP.get(component);
+    }
+
+    @Override
+    public void changeComponentToHandle(ControllerEventHandler handler, Identifier component) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
 }

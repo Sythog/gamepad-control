@@ -5,6 +5,8 @@
 
 package com.ghosty.desktop.gamepad.listener;
 
+import com.ghosty.desktop.gamepad.handler.ControllerEventHandler;
+import net.java.games.input.Component.Identifier;
 import net.java.games.input.Controller;
 
 public abstract class ControllerListener implements Runnable {
@@ -33,4 +35,8 @@ public abstract class ControllerListener implements Runnable {
     }
 
     protected abstract void processPollData();
+
+    public abstract ControllerEventHandler getHandlerForComponent(Identifier component);
+
+    public abstract void changeComponentToHandle(ControllerEventHandler handler, Identifier component);
 }

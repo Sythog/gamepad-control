@@ -7,6 +7,7 @@ package com.ghosty.desktop.gamepad.utils;
 
 import com.ghosty.desktop.gamepad.listener.ControllerListenerContainer;
 import com.ghosty.desktop.gamepad.prop.AutoStartupPropertyListener;
+import com.ghosty.desktop.gamepad.prop.ButtonSettingsPropertyListener;
 import com.ghosty.desktop.gamepad.prop.PropertyManager;
 import com.google.common.collect.Lists;
 import net.java.games.input.Controller;
@@ -24,6 +25,7 @@ public abstract class ControllerUtils {
     private static final Logger LOG = LoggerFactory.getLogger(ControllerUtils.class);
 
     public static final List<ControllerListenerContainer> LISTENER_CONTAINERS = Lists.newArrayList();
+    private static final PropertyManager PROPERTY_MANAGER = PropertyManager.getInstance();
 
     public static Controller findGamepad() throws InterruptedException {
         Controller instance;
@@ -50,7 +52,20 @@ public abstract class ControllerUtils {
         container.startListeners();
     }
 
+    public static ControllerListenerContainer getActiveControllerListenerContainer() {
+        return LISTENER_CONTAINERS.stream()
+                .filter(ControllerListenerContainer::handlersEnabled)
+                .findAny()
+                .orElseGet(() -> {
+                    LOG.warn("No active controllers found");
+                    return null;
+                });
+    }
+
     public static void registerPropertyListeners() {
-        PropertyManager.getInstance().addListener("gdc.auto.startup", new AutoStartupPropertyListener());
+        ButtonSettingsPropertyListener buttonSettingsPropertyListener = new ButtonSettingsPropertyListener();
+        PROPERTY_MANAGER.addListener("gdc.auto.startup", new AutoStartupPropertyListener());
+        PROPERTY_MANAGER.addListener("gdc.left.click", buttonSettingsPropertyListener);
+        PROPERTY_MANAGER.addListener("gdc.right.click", buttonSettingsPropertyListener);
     }
 }
